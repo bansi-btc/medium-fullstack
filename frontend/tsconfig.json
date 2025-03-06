@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ESNext", // Uses the latest JavaScript features
+    "module": "ESNext", // Uses ES module syntax
+    "moduleResolution": "Node", // Resolves modules using Node.js logic
+    "strict": true, // Enables strict mode for better type checking
+    "jsx": "preserve", // Preserves JSX (for React)
+    "esModuleInterop": true, // Ensures compatibility with ES modules
+    "skipLibCheck": true // Skips checking declaration files for libraries
+  }
+}
