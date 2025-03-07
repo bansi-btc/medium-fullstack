@@ -1,0 +1,19 @@
+import React from "react";
+import SignUp from "../components/SignUp";
+import TestimonialCard from "../components/Quote";
+
+const SignUpPage = () => {
+  return (
+    <div className="h-full w-full flex flex-row items-center justify-center">
+      <div className="md:w-1/2 bg-white h-full flex flex-col items-center justify-center">
+        <SignUp />
+      </div>
+
+      <div className="w-1/2 bg-gray-300 h-full md:flex flex-col items-center justify-center hidden">
+        <TestimonialCard />
+      </div>
+    </div>
+  );
+};
+
+export default SignUpPage;
