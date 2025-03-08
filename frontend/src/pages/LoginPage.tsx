@@ -1,11 +1,10 @@
 import React from "react";
-import SignUp from "../components/Auth/SignUp";
 import TestimonialCard from "../components/Auth/Quote";
 import Login from "../components/Auth/Login";
 
 const LoginPage = () => {
   return (
-    <div className="h-full w-full flex flex-row items-center justify-center">
+    <div className="h-screen w-full flex flex-row items-center justify-center">
       <div className="md:w-1/2 bg-white h-full flex flex-col items-center justify-center">
         <Login />
       </div>

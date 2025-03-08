@@ -4,7 +4,7 @@ import TestimonialCard from "../components/Auth/Quote";
 
 const SignUpPage = () => {
   return (
-    <div className="h-full w-full flex flex-row items-center justify-center">
+    <div className="h-screen w-full flex flex-row items-center justify-center">
       <div className="md:w-1/2 bg-white h-full flex flex-col items-center justify-center">
         <SignUp />
       </div>
