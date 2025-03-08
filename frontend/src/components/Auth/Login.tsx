@@ -1,27 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import classnames from "classnames";
-import { TsignUpInput } from "@himanshugupta123/medium-common";
+import { TsignInInput } from "@himanshugupta123/medium-common";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { signUpUser } from "../utils/login/helper";
+import { signInUser } from "../../utils/login/helper";
 
-const SignUp: React.FC = () => {
+const Login: React.FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<TsignUpInput>();
+  } = useForm<TsignInInput>();
+
+  const [isLoading, setisLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const mutation = useMutation({
-    mutationFn: signUpUser,
+  const signInMutation = useMutation({
+    mutationFn: signInUser,
     onSuccess: (resp) => {
       if (resp.success) {
-        toast.success(resp.message ?? "Signed up successfuy");
-        navigate("/login");
+        toast.success(resp.message ?? "Logged In successfuy");
+        navigate("/");
         return;
       }
 
@@ -30,34 +32,23 @@ const SignUp: React.FC = () => {
     onError: (err) => {
       toast.error(err.message ?? "Something went wrong");
     },
+    onSettled: () => {
+      setisLoading(false);
+    },
   });
 
-  const onSubmit = async (data: TsignUpInput) => {
-    mutation.mutate(data);
+  const onSubmit = async (data: TsignInInput) => {
+    setisLoading(true);
+    signInMutation.mutate(data);
   };
 
   return (
     <div className="w-96">
       <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
-        Create Account
+        Log In to your account
       </h2>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-1">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">
-            Full Name
-          </label>
-          <input
-            {...register("name", { required: "Name is required" })}
-            className="w-full p-3 border rounded-lg mt-1 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            type="text"
-            placeholder="Enter your name"
-          />
-          <p className={classnames("text-red-500 text-xs mt-1 h-4")}>
-            {errors?.name?.message}
-          </p>
-        </div>
-
         <div>
           <label className="block text-sm font-medium text-gray-700">
             Email Address
@@ -95,20 +86,29 @@ const SignUp: React.FC = () => {
 
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-3 rounded-lg font-semibold text-lg hover:bg-blue-600 transition-all duration-200 shadow-md"
+          className={classnames(
+            "w-full  text-white py-3 rounded-lg font-semibold text-lg transition-all duration-200 shadow-md",
+            {
+              "bg-blue-500": !isLoading,
+              "bg-blue-300": isLoading,
+            }
+          )}
         >
-          Sign Up
+          {isLoading ? "Logging in..." : "Log In"}
         </button>
       </form>
 
       <p className="text-center text-sm text-gray-600 mt-4">
-        Already have an account?{" "}
-        <Link to="/login" className="text-blue-500 font-medium hover:underline">
-          Log in
+        Dont have an account?{" "}
+        <Link
+          to="/signup"
+          className="text-blue-500 font-medium hover:underline"
+        >
+          Sign Up
         </Link>
       </p>
     </div>
   );
 };
 
-export default SignUp;
+export default Login;

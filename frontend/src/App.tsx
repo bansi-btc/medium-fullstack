@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignUpPage from "./pages/SignUpPage";
 import { ToastContainer } from "react-toastify";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import LoginPage from "./pages/LoginPage";
 
 const queryClient = new QueryClient();
 function App() {
@@ -12,7 +13,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/signin" element={<>Signin</>} />
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/blog/:id" element={<>temp</>} />
           </Routes>
         </BrowserRouter>
